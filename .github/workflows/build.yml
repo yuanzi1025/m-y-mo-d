@@ -17,12 +17,12 @@ jobs:
           distribution: 'temurin'
       - name: Make gradlew executable
         run: chmod +x gradlew
-      - name: Disable AccessTransformer task
-        run: echo "gradle.taskGraph.whenReady { graph -> graph.allTasks.findAll { it.name == 'neoFormApplyForgesAccessTransformer' }.each { it.enabled = false } }" >> build.gradle
-      - name: Clean old caches
-        run: rm -rf build .gradle ~/.gradle/caches/modules-2/files-2.1/net.neoforged.neoform ~/.gradle/caches/modules-2/files-2.1/net.neoforged.neoforge
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+      - name: Clean Gradle caches and build
+        run: |
+          rm -rf build .gradle
+          rm -rf ~/.gradle/caches
+      - name: Build with Gradle (skip access transformers)
+        run: ./gradlew build --no-daemon -Dorg.gradle.internal.launcher.welcomeMessageDisplayed=false
       - name: Upload mod JAR
         uses: actions/upload-artifact@v4
         with:
