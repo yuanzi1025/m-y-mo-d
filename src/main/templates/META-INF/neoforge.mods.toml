@@ -1,0 +1,31 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+
+[[mods]]
+modId = "achievementhelper"
+version = "1.0.0"
+displayName = "Achievement Helper"
+logoFile = "achievementhelper.png"
+description = '''
+辅助完成 Minecraft 所有成就的模组。
+- 按 H 键打开成就列表 GUI
+- 自动扫描原版及所有模组的成就
+- 标记完成状态，可筛选未完成成就
+'''
+authors = "YourName"
+credits = "Thanks to NeoForge team"
+license = "MIT"
+
+[[dependencies.achievementhelper]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[20.4,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.achievementhelper]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.1,1.22)"
+ordering = "NONE"
+side = "BOTH"

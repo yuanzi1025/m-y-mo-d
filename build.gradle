@@ -1,0 +1,55 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.0.100'
+}
+
+base {
+    archivesName = "achievementhelper"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+repositories {
+    // 1. 阿里云镜像（最高优先级）
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    // 2. NeoForge 官方源（作为备用，但国内访问可能慢）
+    maven { url = 'https://maven.neoforged.net/releases' }
+    // 3. Maven Central 也走阿里云镜像，所以这里不需要重复写
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+    implementation 'io.netty:netty-all:4.1.100.Final'
+}
+
+runs {
+    client {
+        programArguments.addAll '--username', 'Dev'
+    }
+    server {
+        programArgument '--nogui'
+    }
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
+}
