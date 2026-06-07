@@ -17,6 +17,8 @@ jobs:
           distribution: 'temurin'
       - name: Make gradlew executable
         run: chmod +x gradlew
+      - name: Clean previous neoForm cache
+        run: rm -rf build/neoForm
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
       - name: Upload mod JAR
