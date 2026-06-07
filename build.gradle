@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.81'   // 升级到 7.0.81 以支持 JDK 21 工具链
+    id 'net.neoforged.gradle.userdev' version '7.0.80'   // 升级到 7.0.81 以支持 JDK 21 工具链
 }
 
 base {
