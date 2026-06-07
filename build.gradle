@@ -11,13 +11,11 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 repositories {
-    // 1. 阿里云镜像（最高优先级）
-    maven { url = 'https://maven.aliyun.com/repository/public' }
-    // 2. NeoForge 官方源（作为备用，但国内访问可能慢）
+    mavenCentral()
     maven { url = 'https://maven.neoforged.net/releases' }
-    // 3. Maven Central 也走阿里云镜像，所以这里不需要重复写
+    // 如果还需要加速，可以保留阿里云但放最后，并容忍其 502 错误（实际上 Actions 环境不需要）
+    // maven { url = 'https://maven.aliyun.com/repository/public' }
 }
-
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation 'io.netty:netty-all:4.1.100.Final'
