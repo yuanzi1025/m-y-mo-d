@@ -25,6 +25,9 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation 'io.netty:netty-all:4.1.100.Final'
 }
+ tasks.named('neoFormApplyForgesAccessTransformer') {
+    enabled = false
+}
 
 runs {
     client {
