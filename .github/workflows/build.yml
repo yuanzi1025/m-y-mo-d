@@ -17,10 +17,10 @@ jobs:
           distribution: 'temurin'
       - name: Make gradlew executable
         run: chmod +x gradlew
-      - name: Clean previous build and Gradle caches
-        run: |
-          rm -rf build .gradle
-          rm -rf ~/.gradle/caches
+      - name: Disable AccessTransformer task
+        run: echo "gradle.taskGraph.whenReady { graph -> graph.allTasks.findAll { it.name == 'neoFormApplyForgesAccessTransformer' }.each { it.enabled = false } }" >> build.gradle
+      - name: Clean old caches
+        run: rm -rf build .gradle ~/.gradle/caches/modules-2/files-2.1/net.neoforged.neoform ~/.gradle/caches/modules-2/files-2.1/net.neoforged.neoforge
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
       - name: Upload mod JAR
