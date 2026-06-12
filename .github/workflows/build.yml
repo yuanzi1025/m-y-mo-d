@@ -1,9 +1,6 @@
-name: Build NeoForge Mod
+name: Build Mod (Skip AT)
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -17,13 +14,9 @@ jobs:
           distribution: 'temurin'
       - name: Make gradlew executable
         run: chmod +x gradlew
-      - name: Clean Gradle caches and build
-        run: |
-          rm -rf build .gradle
-          rm -rf ~/.gradle/caches
-      - name: Build with Gradle (skip access transformers)
-        run: ./gradlew build --no-daemon -Dorg.gradle.internal.launcher.welcomeMessageDisplayed=false
-      - name: Upload mod JAR
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+      - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
           name: mod-jar
